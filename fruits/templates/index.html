@@ -1,85 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Fruit Store</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f7fff7;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background: #4caf50;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-        .container {
-            max-width: 900px;
-            margin: 30px auto;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-            padding: 30px;
-        }
-        .fruits-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            list-style: none;
-            padding: 0;
-        }
-        .fruit-card {
-            background: #e8f5e9;
-            border-radius: 8px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-            padding: 20px;
-            width: 200px;
-            text-align: center;
-            transition: transform 0.2s;
-        }
-        .fruit-card:hover {
-            transform: translateY(-5px) scale(1.03);
-        }
-        .fruit-img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-bottom: 10px;
-            border: 2px solid #4caf50;
-        }
-        .fruit-name {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin: 10px 0 5px 0;
-        }
-        .fruit-price {
-            color: #388e3c;
-            font-size: 1em;
-            margin-bottom: 10px;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Welcome {{ logged_in_user }} to the Fruit Store</h1>
-        <p>Explore our collection of fresh, delicious fruits!</p>
-    </header>
-    <div class="container">
-        <ul class="fruits-list">
-            {% for fruit in fruits %}
-            <li class="fruit-card">
-                <img class="fruit-img" src="{{ fruit.picture.url }}" alt="{{ fruit.name }}">
-                <div class="fruit-name">{{ fruit.name }}</div>
-                <div class="fruit-price">{{ fruit.price_per_kg }} per kg</div>
-            </li>
-            {% empty %}
-            <li>No fruits available at the moment.</li>
-            {% endfor %}
-        </ul>
-    </div>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Fruit Store{% endblock %}
+{% block content %}
+    <ul class="fruits-list" style="display: flex; flex-wrap: wrap; gap: 30px; list-style: none; padding: 0;">
+        {% for fruit in fruits %}
+        <li class="fruit-card" style="background: #e8f5e9; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); padding: 20px; width: 200px; text-align: center; transition: transform 0.2s;">
+            <img class="fruit-img" src="{{ fruit.picture.url }}" alt="{{ fruit.name }}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; margin-bottom: 10px; border: 2px solid #4caf50;">
+            <div class="fruit-name" style="font-size: 1.2em; font-weight: bold; margin: 10px 0 5px 0;">{{ fruit.name }}</div>
+            <div class="fruit-price" style="color: #388e3c; font-size: 1em; margin-bottom: 10px;">{{ fruit.price_per_kg }} per kg</div>
+        </li>
+        {% empty %}
+        <li>No fruits available at the moment.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
