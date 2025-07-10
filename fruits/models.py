@@ -19,7 +19,10 @@ class FruitDetail(models.Model):
 class CartItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cart_items')
     fruit = models.ForeignKey(Fruit, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
+    quantity = models.DecimalField(max_digits=8, decimal_places=2, default=1.0)
 
     def __str__(self):
-        return f"{self.fruit.name} - {self.quantity} pcs for {self.user.username}"
+        return f"{self.fruit.name} - {self.quantity} kg for {self.user.username}"
+    
+    def get_total_price(self):
+        return self.fruit.price_per_kg * self.quantity

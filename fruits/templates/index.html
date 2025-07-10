@@ -6,7 +6,12 @@
         <li class="fruit-card" style="background: #e8f5e9; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); padding: 20px; width: 200px; text-align: center; transition: transform 0.2s;">
             <img class="fruit-img" src="{{ fruit.picture.url }}" alt="{{ fruit.name }}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; margin-bottom: 10px; border: 2px solid #4caf50;">
             <div class="fruit-name" style="font-size: 1.2em; font-weight: bold; margin: 10px 0 5px 0;">{{ fruit.name }}</div>
-            <div class="fruit-price" style="color: #388e3c; font-size: 1em; margin-bottom: 10px;">{{ fruit.price_per_kg }} per kg</div>
+            <div class="fruit-price" style="color: #388e3c; font-size: 1em; margin-bottom: 15px;">${{ fruit.price_per_kg }} per kg</div>
+            {% if user.is_authenticated %}
+                <a href="{% url 'add_to_cart' fruit.id %}" style="background: #4caf50; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px; display: inline-block; transition: background 0.2s;">Add to Cart</a>
+            {% else %}
+                <p style="color: #888; font-size: 0.9em; margin-top: 10px;">Please login to add to cart</p>
+            {% endif %}
         </li>
         {% empty %}
         <li>No fruits available at the moment.</li>
